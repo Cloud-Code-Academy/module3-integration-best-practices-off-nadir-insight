@@ -29,8 +29,12 @@ public class ExchangeRateService {
      */
     public static List<Exchange_Rate__c> processRates(ExchangeRateWrapper rateData) {
         // TODO: Implement the method to process rates and create/update records
+
+        List<Exchange_Rate__c> exchangeRatesToUpsert = rateData.toExchangeRates();
         
-        return null; // Replace with actual implementation
+        upsert exchangeRatesToUpsert External_Id__c;
+        // return null; // Replace with actual implementation
+        return exchangeRatesToUpsert;
     }
     
     /**
@@ -42,7 +46,11 @@ public class ExchangeRateService {
         // 1. Call getLatestRates to retrieve the data
         // 2. Call processRates to create/update records
         // 3. Return the processed records
+
+        ExchangeRateWrapper parsedJson = getLatestRates();
+        List<Exchange_Rate__c> updatedExchangeRates = processRates(parsedJson);
         
-        return null; // Replace with actual implementation
+        // return null; // Replace with actual implementation
+        return updatedExchangeRates; // Replace with actual implementation
     }
 }

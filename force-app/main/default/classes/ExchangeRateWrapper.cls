@@ -49,7 +49,7 @@ public class ExchangeRateWrapper {
             exchangeRates.add(new Exchange_Rate__c(
                 Base_Currency__c = this.base_code,
                 External_Id__c = this.base_code + '_' + targetCurrency,
-                Last_Updated__c = DateTime.valueOf(time_last_update_unix),
+                Last_Updated__c = DateTime.newInstance(Long.valueOf(time_last_update_unix)),
                 Rate__c = rate,
                 Target_Currency__c = targetCurrency
             ));

@@ -5,7 +5,7 @@
 public class ExchangeRateService {
     
     // The named credential to use for the callout
-    private static final String NAMED_CREDENTIAL = 'ExchangeRate_API';
+    private static final String NAMED_CREDENTIAL = 'ExchangeRateAPI';
     
     // The base currency to use for exchange rates
     private static final String BASE_CURRENCY = 'USD';
@@ -16,8 +16,10 @@ public class ExchangeRateService {
      */
     public static ExchangeRateWrapper getLatestRates() {
         // TODO: Implement the method to make a callout to the Exchange Rate API
-        
-        return null; // Replace with actual implementation
+        HttpResponse response = HttpUtilities.makeCallout('GET', 'callout:NAMED_CREDENTIAL/latest' + BASE_CURRENCY);
+        ExchangeRateWrapper responseParsed = ExchangeRateWrapper.parse(response.getBody());
+
+        return responseParsed; // Replace with actual implementation
     }
     
     /**

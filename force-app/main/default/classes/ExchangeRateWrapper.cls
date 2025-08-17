@@ -18,18 +18,20 @@ public class ExchangeRateWrapper {
     // }
     
     // Add properties for base currency
-    // public String base_code;
+    public String base_code; // base currency code
     
     // Add property for time last updated
-    // public String time_last_update_unix;
+    public String time_last_update_unix;
     
     // Add property for rates (using a map)
-    // public Map<String, Decimal> conversion_rates;
+    public Map<String, Decimal> conversion_rates; // map {currency_code, exchange rate}
+    
 
     // Add property for external ID
     // This is an ID you will generate to uniquely identify the exchange rate record
     // This does not come from the API response
     // public String externalId; baseCurrency + '_' + targetCurrency
+    public String externalId; // baseCurrency + '_' + targetCurrency
     
     /**
      * @description Converts the wrapper data to a list of Exchange_Rate__c records
@@ -41,8 +43,19 @@ public class ExchangeRateWrapper {
         // 2. Iterate through the rates map
         // 3. For each rate, create an Exchange_Rate__c record
         // 4. Return the list of records
+        List<Exchange_Rate__c> exchangeRates = new List<Exchange_Rate__c>();
+        for (String targetCurrency : conversion_rates.keySet()) {
+            Decimal rate = conversion_rates.get(targetCurrency);
+            exchangeRates.add(new Exchange_Rate__c(
+                Base_Currency__c = this.base_code,
+                External_Id__c = this.base_code + '_' + targetCurrency,
+                Last_Updated__c = DateTime.valueOf(time_last_update_unix),
+                Rate__c = rate,
+                Target_Currency__c = targetCurrency
+            ));
+        }
         
-        return null; // Replace with actual implementation
+        return exchangeRates; // Replace with actual implementation
     }
     
     /**
@@ -54,6 +67,6 @@ public class ExchangeRateWrapper {
         // TODO: Implement the method to parse the JSON response
         // Use JSON.deserialize or JSON.deserializeStrict to parse the response
         
-        return null; // Replace with actual implementation
+        return (ExchangeRateWrapper) JSON.deserialize(jsonResponse, ExchangeRateWrapper.class);
     }
 }

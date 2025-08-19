@@ -5,7 +5,7 @@
 public class ExchangeRateService {
     
     // The named credential to use for the callout
-    private static final String NAMED_CREDENTIAL = 'ExchangeRateAPI';
+    private static final String NAMED_CREDENTIAL = 'ExchangeRate_API';
     
     // The base currency to use for exchange rates
     private static final String BASE_CURRENCY = 'USD';

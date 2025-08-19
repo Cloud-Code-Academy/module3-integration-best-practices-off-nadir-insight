@@ -8,17 +8,26 @@ public with sharing class HttpUtilities {
         return makeCallout(method, endpoint, null, null, 10000);
     }   
 
+    /**
+     * @description Static method to make external callouts
+     * @param method The HTTP method
+     * @param endpoint The target for the callout
+     * @param payload The callout body
+     * @param additionalHeaders HTTP headers
+     * @param timeoutMS callout timeout
+     * @return ExchangeRateWrapper The parsed wrapper instance
+     */
     public static HttpResponse makeCallout(
         String method,
         String endpoint,
         String payload,
         Map<String, String> additionalHeaders,
-        Integer TimeoutMS
+        Integer timeoutMS
     ) {
         HttpRequest req = new HttpRequest();
         req.setEndpoint(endpoint);
         req.setMethod(method);
-        req.setTimeout(TimeoutMS);
+        req.setTimeout(timeoutMS);
         req.setHeader('Content-Type', 'application/json');
 
         if (payload != null) {
@@ -41,8 +50,6 @@ public with sharing class HttpUtilities {
             } else {
                 System.debug('Callout failed. Status Code: ' + statusCode);
                 System.debug('Response Body: ' + response.getBody());
-                // return response;
-                // System.debug('Callout Exception Error: ' + ex.getMessage());
                 throw new CalloutException('Callout Error');
             }
 

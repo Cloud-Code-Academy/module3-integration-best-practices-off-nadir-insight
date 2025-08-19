@@ -15,11 +15,10 @@ public class ExchangeRateService {
      * @return ExchangeRateWrapper containing the response data
      */
     public static ExchangeRateWrapper getLatestRates() {
-        // TODO: Implement the method to make a callout to the Exchange Rate API
         HttpResponse response = HttpUtilities.makeCallout('GET', 'callout:NAMED_CREDENTIAL/latest' + BASE_CURRENCY);
         ExchangeRateWrapper responseParsed = ExchangeRateWrapper.parse(response.getBody());
 
-        return responseParsed; // Replace with actual implementation
+        return responseParsed;
     }
     
     /**
@@ -28,12 +27,9 @@ public class ExchangeRateService {
      * @return List<Exchange_Rate__c> The list of records created or updated
      */
     public static List<Exchange_Rate__c> processRates(ExchangeRateWrapper rateData) {
-        // TODO: Implement the method to process rates and create/update records
-
         List<Exchange_Rate__c> exchangeRatesToUpsert = rateData.toExchangeRates();
-        
         upsert exchangeRatesToUpsert External_Id__c;
-        // return null; // Replace with actual implementation
+
         return exchangeRatesToUpsert;
     }
     
@@ -42,15 +38,8 @@ public class ExchangeRateService {
      * @return List<Exchange_Rate__c> The list of records created or updated
      */
     public static List<Exchange_Rate__c> updateExchangeRates() {
-        // TODO: Implement the method to get and process rates
-        // 1. Call getLatestRates to retrieve the data
-        // 2. Call processRates to create/update records
-        // 3. Return the processed records
-
         ExchangeRateWrapper parsedJson = getLatestRates();
         List<Exchange_Rate__c> updatedExchangeRates = processRates(parsedJson);
-        
-        // return null; // Replace with actual implementation
-        return updatedExchangeRates; // Replace with actual implementation
+        return updatedExchangeRates;
     }
 }

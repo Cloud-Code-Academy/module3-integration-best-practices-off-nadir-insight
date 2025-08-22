@@ -15,7 +15,7 @@ public class ExchangeRateService {
      * @return ExchangeRateWrapper containing the response data
      */
     public static ExchangeRateWrapper getLatestRates() {
-        HttpResponse response = HttpUtilities.makeCallout('GET', 'callout:NAMED_CREDENTIAL/latest' + BASE_CURRENCY);
+        HttpResponse response = HttpUtilities.makeCallout('GET', 'callout:NAMED_CREDENTIAL/latest/' + BASE_CURRENCY);
         ExchangeRateWrapper responseParsed = ExchangeRateWrapper.parse(response.getBody());
 
         return responseParsed;
